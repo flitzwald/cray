@@ -20,12 +20,11 @@
 (defn image-every-pixel
   "Iterates over every pixel in the image and calls func on it"
   [image func]
-  (doall 
-   (let [width  (image-width image)
-         height (image-height image )]
-     (for [y (range height)]
-       (doall (for [x (range width)] 
-                (func image x y width height ) ) ) ) ) ) )
+  (let [width  (image-width image)
+        height (image-height image )]
+    (doall (for [y (range height)]
+             (doall (for [x (range width)] 
+                      (func image x y width height ) ) ) ) ) ) )
 
 (defn image-set-pixel!
   "Sets the pixel-color at position x,y"
