@@ -39,17 +39,7 @@
     (if (nil? intersects) 
       black-color
       (let [point (ray-point-at ray (first intersects))
-            normal (sphere-surface-normal sphere point)
-            reflection (compute-reflection-ray ray point normal)
-            light-vectr (vectr-normalize (vectr-subtract point 
-                                                         (:pos light)))
-            diff (max 0.0 (vectr-dot light-vectr 
-                                     (vectr-scale normal -1) ) )
-            half-vectr (vectr-normalize (vectr-add light-vectr (:d ray)))
-            spec (Math/pow (max 0.0 
-                                (vectr-dot half-vectr 
-                                           (vectr-scale normal -1)))
-                           (:phong material))]
+            normal (sphere-surface-normal sphere point)]
         (phong-compose point ray normal material light)))))
 
 (let [img    (make-image 400 400)
