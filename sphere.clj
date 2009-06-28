@@ -1,12 +1,12 @@
 (ns sphere
     (:use vectr))
 
-(defstruct sphere :c :r)
+(defstruct sphere :c :r :material)
 
 (defn make-sphere
-  "Creates a sphere out of its center and radius"
-  [center radius] 
-  (struct sphere center (float radius)))
+  "Creates a sphere out of its center, radius and material"
+  [center radius material] 
+  (struct sphere center (float radius) material))
 
 (defn sphere-intersect
   "Tests whether a ray intersects a sphere.
@@ -22,3 +22,9 @@
         [(- (* v-dot-d -1) sqrt)
          (+ (* v-dot-d -1) sqrt)])
       nil )))
+
+(defn sphere-surface-normal
+  "Computes the surface-normal for a given intersection point"
+  [sphere point]
+  (do 
+    (vectr-scale (vectr-subtract point (:c sphere)) (/ 1 (:r sphere)))))
